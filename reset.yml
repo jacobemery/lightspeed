@@ -9,18 +9,18 @@
         name: httpd
         state: absent
 
-    - name: Stop and disable firewalld.
-      ansible.builtin.service:
-        name: firewalld
-        state: stopped
-        enabled: false
-
     - name: Modify firewalld to not allow tcp connections via port 80.
       ansible.posix.firewalld:
         service: http
         permanent: true
         immediate: true
         state: disabled
+
+    - name: Stop and disable firewalld.
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+        enabled: false
 
     - name: Remove /var/www/html/index.html from server.
       ansible.builtin.file:

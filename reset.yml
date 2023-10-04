@@ -1,0 +1,30 @@
+- name: Reset website for demonstration purposes.
+  hosts: linuxone
+  become: true
+  tasks:
+
+    - name: Install httpd package.
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Modify firewalld to allow tcp connections via port 80.
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        immediate: true
+        state: enabled
+
+    - name: Copy contents from index.html to server.
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: '0644'
+
+    - name: Start and enable httpd.
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true

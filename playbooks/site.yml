@@ -7,6 +7,12 @@
         name: httpd
         state: present
 
+    - name: Start and enable firewalld.
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
     - name: Modify firewalld to allow tcp connections via port 80.
       ansible.posix.firewalld:
         service: http

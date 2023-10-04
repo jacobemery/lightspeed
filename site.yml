@@ -1,54 +1,16 @@
+---
 - name: Deploy simple website using Ansible Lightspeed for demonstration purposes.
   hosts: linuxone
   become: true
   tasks:
-    - name: Install httpd package.
-      ansible.builtin.package:
-        name: httpd
-        state: present
+    # - name: Ensure httpd package is installed.
 
-    - name: Start and enable firewalld.
-      ansible.builtin.service:
-        name: firewalld
-        state: started
-        enabled: true
+    # - name: Start and enable firewalld.
 
-    - name: Modify firewalld to allow tcp connections via port 80.
-      ansible.posix.firewalld:
-        service: http
-        permanent: true
-        immediate: true
-        state: enabled
+    # - name: Modify firewalld to allow tcp connections via port 80.
 
-    - name: Copy contents from index.html to server with correct permissions.
-      ansible.builtin.copy:
-        src: index.html
-        dest: /var/www/html/index.html
-        owner: root
-        group: root
-        mode: '0644'
+    # - name: Copy contents from index.html to server with correct permissions.
 
-    - name: Start and enable httpd.
-      ansible.builtin.service:
-        name: httpd
-        state: started
-        enabled: true
+    # - name: Start and enable httpd.
 
-    - name: Print IP address for web server.
-      ansible.builtin.debug:
-        var: ansible_default_ipv4.address
-
-
-#
-
-
-#
-
-
-############### Additional tasks for demonstration ###########################
-
-    # - name: Modify ip_forward sysctl kernel parameter.
-
-    # - name: Use an xml template to install a virtual machine using libvirt.
-
-    # - name: Extend the 'home' logical volume to consume all remaining space in the 'vg' volume group.
+    # - name: Print IP address for web server.

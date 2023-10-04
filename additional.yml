@@ -1,0 +1,12 @@
+---
+- name: Deploy simple website using Ansible Lightspeed for demonstration purposes.
+  hosts: linuxone
+  become: true
+  tasks:
+############### Additional tasks for demonstration ###########################
+
+    # - name: Modify ip_forward sysctl kernel parameter.
+
+    # - name: Use an xml template to install a virtual machine using libvirt.
+
+    # - name: Extend the 'home' logical volume to consume all remaining space in the 'vg' volume group.

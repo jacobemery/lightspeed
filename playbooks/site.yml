@@ -22,7 +22,7 @@
 
     - name: Copy contents from files/index.html to server with correct permissions.
       ansible.builtin.copy:
-        src: files/index.html
+        src: "{{ playbook_dir }}/files/index.html"
         dest: /var/www/html/index.html
         owner: root
         group: root

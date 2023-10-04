@@ -20,9 +20,9 @@
         immediate: true
         state: enabled
 
-    - name: Copy contents from files/index.html to server with correct permissions.
+    - name: Copy contents from index.html to server with correct permissions.
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/files/index.html"
+        src: index.html
         dest: /var/www/html/index.html
         owner: root
         group: root

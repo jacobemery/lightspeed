@@ -36,3 +36,5 @@
         enabled: true
 
     - name: Print IP address for web server using Ansible facts.
+      ansible.builtin.debug:
+        var: ansible_default_ipv4.address

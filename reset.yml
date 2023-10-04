@@ -4,11 +4,6 @@
   become: true
   tasks:
 
-    - name: Ensure httpd package is absent.
-      ansible.builtin.package:
-        name: httpd
-        state: absent
-
     - name: Modify firewalld to not allow tcp connections via port 80.
       ansible.posix.firewalld:
         service: http
@@ -32,3 +27,9 @@
         name: httpd
         state: stopped
         enabled: false
+
+    - name: Ensure httpd package is absent.
+      ansible.builtin.package:
+        name: httpd
+        state: absent
+        

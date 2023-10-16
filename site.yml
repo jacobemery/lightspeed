@@ -9,7 +9,7 @@
 
     - name: Modify firewalld to allow tcp connections via port 80.
 
-    - name: Copy contents from index.html to server with correct permissions.
+    - name: Copy contents from site folder to server with correct permissions.
 
     - name: Start and enable httpd.
 

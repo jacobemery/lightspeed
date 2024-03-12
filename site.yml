@@ -4,8 +4,37 @@
   become: true
   tasks:
     - name: Ensure httpd package is installed.
+      ansible.builtin.package:
+        name: httpd
+        state: present
+    
     - name: Start and enable firewalld.
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+    
     - name: Modify firewalld to allow tcp connections via port 80.
+      ansible.posix.firewalld:
+        port: 80/tcp
+        permanent: true
+        state: enabled
+    
     - name: Copy contents from site folder and set permissions and ownership to root.
+      ansible.builtin.copy:
+        src: site/
+        dest: /var/www/html/
+        owner: root
+        group: root
+        mode: '0644'
+    
     - name: Start and enable httpd.
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+    
     - name: Print IP address for web server using Ansible facts.
+      ansible.builtin.debug:
+        var: ansible_default_ipv4.address
+    

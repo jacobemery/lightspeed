@@ -3,9 +3,26 @@
   hosts: linuxone
   become: true
   tasks:
-    - name: Ensure httpd package is installed.
-    - name: Start and enable firewalld.
-    - name: Modify firewalld to allow tcp connections via port 80.
-    - name: Copy contents from site folder and set permissions and ownership to root.
-    - name: Start and enable httpd.
-    - name: Print IP address for web server using Ansible facts.
+    - name: Ensure httpd and firewalld packages are installed.
+      ansible.builtin.package:
+        name:
+          - httpd
+          - firewalld
+        state: present
+
+    - name: Start and enable firewalld and httpd services.
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - firewalld
+        - httpd
+
+    - name: Copy contents from 'site' folder and set permissions and ownership to root.
+      ansible.builtin.copy:
+        src: /home/ubuntu/site
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: '0755'

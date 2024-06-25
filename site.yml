@@ -18,7 +18,7 @@
         mode: "0644"
     - name: Set firewall rules
       ansible.posix.firewalld:
-        service: http
+        service: 80/tcp
         permanent: true
         state: enabled
         immediate: true

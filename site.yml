@@ -19,10 +19,10 @@
         - firewalld
         - httpd
 
-    - name: Copy contents from 'site' folder and set permissions and ownership to root.
+    - name: Copy from the 'site/' folder and set proper permissions for webserver content.
       ansible.builtin.copy:
-        src: /home/ubuntu/site
-        dest: /var/www/html
+        src: site/
+        dest: /var/www/html/
         owner: root
         group: root
         mode: '0755'

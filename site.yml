@@ -1,28 +1,26 @@
 ---
-- name: Deploy a simple website using Ansible Lightspeed with IBM watsonx Code Assistant for demonstration purposes.
+- name: Deploy webserver for linuxone group
   hosts: linuxone
   become: true
   tasks:
-    - name: Ensure httpd and firewalld packages are installed.
+    - name: Install httpd and firewalld
       ansible.builtin.package:
         name:
           - httpd
           - firewalld
         state: present
-
-    - name: Start and enable firewalld and httpd services.
+    - name: Copy contents from site folder
+      ansible.builtin.copy:
+        src: site/
+        dest: /var/www/html/
+        owner: apache
+        group: apache
+        mode: "0644"
+    - name: Start and enable httpd and firewalld
       ansible.builtin.service:
         name: "{{ item }}"
         state: started
         enabled: true
       loop:
-        - firewalld
         - httpd
-
-    - name: Copy from the 'site/' folder and set proper permissions for webserver content.
-      ansible.builtin.copy:
-        src: site/
-        dest: /var/www/html/
-        owner: root
-        group: root
-        mode: '0755'
+        - firewalld

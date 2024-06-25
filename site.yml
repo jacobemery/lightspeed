@@ -30,3 +30,11 @@
       loop:
         - httpd
         - firewalld
+
+    - name: Check httpd service status
+      ansible.builtin.service_facts:
+      register: service_facts
+
+    - name: Display httpd service status
+      ansible.builtin.debug:
+        msg: "httpd service status: {{ service_facts.ansible_facts.services['httpd.service'].state }}"

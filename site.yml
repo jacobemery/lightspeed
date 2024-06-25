@@ -13,8 +13,8 @@
       ansible.builtin.copy:
         src: site/
         dest: /var/www/html/
-        owner: apache
-        group: apache
+        owner: root
+        group: root
         mode: "0644"
     - name: Set firewall rules
       ansible.posix.firewalld:

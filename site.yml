@@ -9,13 +9,6 @@
           - httpd
           - firewalld
         state: present
-    - name: Copy contents from site folder
-      ansible.builtin.copy:
-        src: site/
-        dest: /var/www/html/
-        owner: apache
-        group: apache
-        mode: "0644"
     - name: Start and enable httpd and firewalld
       ansible.builtin.service:
         name: "{{ item }}"
@@ -24,3 +17,16 @@
       loop:
         - httpd
         - firewalld
+    - name: Copy contents from site folder
+      ansible.builtin.copy:
+        src: site/
+        dest: /var/www/html/
+        owner: apache
+        group: apache
+        mode: "0644"
+    - name: Open firewall for httpd
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true

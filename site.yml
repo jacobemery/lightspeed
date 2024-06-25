@@ -13,14 +13,15 @@
       ansible.builtin.copy:
         src: site/
         dest: /var/www/html/
-        owner: root
-        group: root
+        owner: apache
+        group: apache
         mode: "0644"
     - name: Set firewall rules
       ansible.posix.firewalld:
-        service: 80/tcp
+        service: http
         permanent: true
         state: enabled
+        immediate: true
     - name: Restart httpd and firewalld
       ansible.builtin.service:
         name: "{{ item }}"
@@ -29,11 +30,3 @@
       loop:
         - httpd
         - firewalld
-
-    - name: Check httpd service status
-      ansible.builtin.service_facts:
-      register: service_facts
-
-    - name: Display httpd service status
-      ansible.builtin.debug:
-        msg: "httpd service status: {{ service_facts.ansible_facts.services['httpd.service'].state }}"

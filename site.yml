@@ -9,24 +9,24 @@
           - httpd
           - firewalld
         state: present
-    - name: Start and enable httpd and firewalld
-      ansible.builtin.service:
-        name: "{{ item }}"
-        state: started
-        enabled: true
-      loop:
-        - httpd
-        - firewalld
-    - name: Copy contents from site folder
+    - name: Copy website contents to /var/www/html
       ansible.builtin.copy:
         src: site/
         dest: /var/www/html/
         owner: apache
         group: apache
         mode: "0644"
-    - name: Open firewall for httpd
+    - name: Set firewall rules
       ansible.posix.firewalld:
         service: http
         permanent: true
         state: enabled
         immediate: true
+    - name: Restart httpd and firewalld
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      loop:
+        - httpd
+        - firewalld

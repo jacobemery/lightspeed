@@ -16,6 +16,12 @@
         owner: apache
         group: apache
         mode: "0644"
+    - name: start firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
     - name: Set firewall rules
       ansible.posix.firewalld:
         service: http

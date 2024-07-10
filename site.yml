@@ -9,6 +9,7 @@
           - httpd
           - firewalld
         state: present
+
     - name: Copy website contents to /var/www/html
       ansible.builtin.copy:
         src: site/
@@ -16,7 +17,8 @@
         owner: apache
         group: apache
         mode: "0644"
-    - name: start firewalld
+
+    - name: Start firewalld
       ansible.builtin.service:
         name: firewalld
         state: started
@@ -28,6 +30,7 @@
         permanent: true
         state: enabled
         immediate: true
+
     - name: Restart httpd and firewalld
       ansible.builtin.service:
         name: "{{ item }}"

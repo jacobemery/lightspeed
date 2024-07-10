@@ -17,6 +17,7 @@
       loop:
         - httpd
         - firewalld
+        
     - name: Allow httpd service through firewall
       ansible.posix.firewalld:
         service: http

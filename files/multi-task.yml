@@ -12,6 +12,7 @@
           - firewalld
         state: present
 
+
     - name: Start and enable httpd and firewalld
       ansible.builtin.service:
         name: "{{ item }}"

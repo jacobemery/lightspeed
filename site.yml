@@ -1,6 +1,7 @@
 ---
 - name: Deploy webserver
   hosts: linuxone
+  become: true
   tasks:
     - name: Ensure firewalld and httpd are installed
       ansible.builtin.package:

@@ -32,8 +32,7 @@
         dest: /var/www/html/
         owner: root
         group: root
-        mode: u=rw,g=r,o=r
-
+        mode: '755'
 
     - name: Restart firewalld and httpd
       ansible.builtin.service:

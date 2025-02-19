@@ -1,0 +1,35 @@
+---
+- name: Deploy webserver via ansible
+  hosts: linuxone
+  tasks:
+    - name: Ensure firewalld and httpd are started and enabled
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - firewalld
+        - httpd
+
+    - name: Ensure firewalld allows http
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+
+    - name: Copy website contents from site folder and set permissions correctly
+      ansible.builtin.copy:
+        src: site/
+        dest: /var/www/html/
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+
+
+    - name: Restart firewalld and httpd
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+        - firewalld
+        - httpd

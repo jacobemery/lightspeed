@@ -22,7 +22,7 @@
 
     - name: Ensure firewalld allows http
       ansible.posix.firewalld:
-        service: http
+        service: httpd
         permanent: true
         state: enabled
 

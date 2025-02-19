@@ -25,13 +25,14 @@
         service: http
         permanent: true
         state: enabled
+        immediate: true
 
     - name: Copy website contents from site folder and set permissions correctly
       ansible.builtin.copy:
         src: site/
         dest: /var/www/html/
-        owner: root
-        group: root
+        owner: apache
+        group: apache
         mode: '755'
 
     - name: Restart firewalld and httpd

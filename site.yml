@@ -1,7 +1,16 @@
 ---
 - name: Deploy webserver via ansible
   hosts: linuxone
+  become: true
   tasks:
+
+    - name: Install httpd and firewalld packages
+      ansible.builtin.package:
+        name:
+          - httpd
+          - firewalld
+        state: present
+
     - name: Ensure firewalld and httpd are started and enabled
       ansible.builtin.service:
         name: "{{ item }}"
